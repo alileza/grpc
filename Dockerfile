@@ -1,7 +1,7 @@
 FROM golang:1.13-alpine
 
 # install protobuf
-RUN apk add --update protobuf git
+RUN apk add --update protobuf git bash
 
 # Get the source from GitHub
 RUN go get google.golang.org/grpc
