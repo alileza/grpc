@@ -9,3 +9,5 @@ RUN go get google.golang.org/grpc
 RUN go get github.com/golang/protobuf/protoc-gen-go
 RUN go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 RUN go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+
+COPY ./third_party /third_party
