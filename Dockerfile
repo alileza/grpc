@@ -1,4 +1,4 @@
-FROM golang:1.13-alpine
+FROM golang:1.14-alpine
 
 # install protobuf
 RUN apk add --update protobuf git bash
@@ -9,5 +9,6 @@ RUN go get google.golang.org/grpc
 RUN go get github.com/golang/protobuf/protoc-gen-go
 RUN go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 RUN go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+RUN go get github.com/envoyproxy/protoc-gen-validate
 
 COPY ./third_party /third_party
