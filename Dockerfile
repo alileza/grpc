@@ -1,14 +1,13 @@
-FROM golang:1.14-alpine
+FROM alileza/grpc-gen:0.4.1 AS base
 
-# install protobuf
-RUN apk add --update protobuf git bash
+FROM node:12.18.3-alpine AS ts
 
-# Get the source from GitHub
-RUN go get google.golang.org/grpc
-# Install protoc-gen-go
-RUN go get github.com/golang/protobuf/protoc-gen-go
-RUN go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
-RUN go get github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
-RUN go get github.com/envoyproxy/protoc-gen-validate
+COPY --from=base /third_party /third_party
+COPY --from=base /go/bin/protoc-gen-go /bin/protoc-gen-go
+COPY --from=base /go/bin/protoc-gen-grpc-gateway /bin/protoc-gen-grpc-gateway
+COPY --from=base /go/bin/protoc-gen-swagger /bin/protoc-gen-swagger
+COPY --from=base /go/bin/protoc-gen-validate /bin/protoc-gen-validate
 
-COPY ./third_party /third_party
+RUN apk add protobuf-dev
+
+RUN npm install -g ts-proto ts-protoc-gen
